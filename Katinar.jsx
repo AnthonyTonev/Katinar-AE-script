@@ -91,7 +91,7 @@
 							orientation:'row', alignment:['fill','top'], \
                             fcheck: Checkbox { text:'Lock', alignment:['fill','center'] }, \
                             dropDown: DropDownList {properties:{items:['All','None', 'Red','Yellow','Aqua','Pink','Lavender','Peach','Sea Foam', 'Blue','Green','Purple','Orange','Brown','Fuchsia','Cyan','Sandstone','Dark Green'], alignment:['fill','center'] }, preferredSize:[-1,20]},\
-                             icheck: Checkbox { text:'invert', alignment:['fill','center'] }, \
+                             icheck: Checkbox { text:'Invert', alignment:['fill','center'] }, \
 						}, \
 					}";
 
