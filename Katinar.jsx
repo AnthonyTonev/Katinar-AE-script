@@ -7,8 +7,8 @@
         var uncheck = true;
         var icheck = false;
         var iuncheck = true;
-        
-        
+
+
         function checkLocker() {
             if (uncheck) {
                 check = true;
@@ -19,25 +19,26 @@
                 uncheck = true;
                 locked = check;
             }
-                return locked;
+            return locked;
         }
-        function invertLocker(){
+
+        function invertLocker() {
             if (iuncheck) {
                 icheck = true;
                 iuncheck = false;
-              
+
             } else if (!iuncheck) {
                 icheck = false;
                 iuncheck = true;
-             
+
             }
             return icheck;
         }
 
         function dropNumGen() {
-            var dropListLen = my_palette.grp.optsRow.dropDown.items.length;
-            for (var i = 0; i <= dropListLen; i++) {
-                if (my_palette.grp.optsRow.dropDown.items[i].selected == true) {
+            var dropList = my_palette.grp.optsRow.dropDown.items;
+            for (var i = 0; i <= dropList.length; i++) {
+                if (dropList[i].selected == true) {
                     dropNum = i;
                     return dropNum;
                 }
@@ -46,25 +47,26 @@
 
         function onAssembleClick() {
             app.beginUndoGroup("lock back");
+            var dropList = my_palette.grp.optsRow.dropDown.items;
             var activeItem = app.project.activeItem;
             var firstLayer;
             if ((activeItem == null) || !(activeItem instanceof CompItem)) {
                 alert("Select or open a comp first.", scriptName);
-            } else if (my_palette.grp.optsRow.dropDown.items[dropNum].selected) {
+            } else if (dropList[dropNum].selected) {
                 for (var i = 0; i < activeItem.numLayers; i++) {
                     firstLayer = activeItem.layer(i + 1);
-                    if(icheck){
-                    if (firstLayer.label != (dropNum - 1) && dropNum > 0) {
-                        firstLayer.locked = locked;
-                    } else if (dropNum == 0) {
-                        firstLayer.locked = locked;
-                    }
-                    }else if(!icheck){
+                    if (icheck) {
+                        if (firstLayer.label != (dropNum - 1) && dropNum > 0) {
+                            firstLayer.locked = locked;
+                        } else if (dropNum == 0) {
+                            firstLayer.locked = locked;
+                        }
+                    } else if (!icheck) {
                         if (firstLayer.label == (dropNum - 1) && dropNum > 0) {
-                        firstLayer.locked = locked;
-                    } else if (dropNum == 0) {
-                        firstLayer.locked = locked;
-                    }
+                            firstLayer.locked = locked;
+                        } else if (dropNum == 0) {
+                            firstLayer.locked = locked;
+                        }
                     }
                 }
             }
@@ -89,7 +91,7 @@
 							orientation:'row', alignment:['fill','top'], \
                             fcheck: Checkbox { text:'Lock', alignment:['fill','center'] }, \
                             dropDown: DropDownList {properties:{items:['All','None', 'Red','Yellow','Aqua','Pink','Lavender','Peach','Sea Foam', 'Blue','Green','Purple','Orange','Brown','Fuchsia','Cyan','Sandstone','Dark Green'], alignment:['fill','center'] }, preferredSize:[-1,20]},\
-                             icheck: Checkbox { text:'Invert', alignment:['fill','center'] }, \
+                             icheck: Checkbox { text:'invert', alignment:['fill','center'] }, \
 						}, \
 					}";
 
